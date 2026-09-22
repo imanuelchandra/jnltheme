@@ -91,13 +91,15 @@ $request_uri = urlencode(strip_tags(urldecode($_SERVER['REQUEST_URI'])));
     <link rel="shortcut icon" href="<?= $icon ?>" type="image/x-icon"/>
 
     <!-- // load vue js -->
-    <script src="<?php echo assets('js/vue.global.js'); ?>"></script>
+    <script src="<?php echo assets('js/vue.min.js'); ?>"></script>
     <!-- // load jquery library -->
     <script src="<?php echo assets('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo assets('js/masonry.pkgd.min.js'); ?>"></script>
     <!-- // load bootstrap javascript -->
     <script src="<?php echo assets('js/bootstrap.bundle.min.js'); ?>"></script>
     <!-- // load vegas javascript -->
+    <script src="<?php echo assets('js/tailwind.min.js'); ?>"></script>
+
     <script src="<?php echo assets('plugin/vegas/vegas.min.js'); ?>"></script>
     <script src="<?php echo JWB; ?>toastr/toastr.min.js"></script>
     <!-- // load SLiMS javascript -->

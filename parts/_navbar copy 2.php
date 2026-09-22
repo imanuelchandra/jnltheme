@@ -41,14 +41,32 @@ $main_menus = [
   ]
 ];
 ?>
-<nav class="hidden lg:flex flex-1 justify-center items-center gap-1 px-6 transition-all duration-500" :class="scrolledHeader ? 'justify-end' : 'justify-center'">
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <a class="navbar-brand inline-flex items-center" href="index.php">
+        <?php
+        if(isset($sysconf['logo_image']) && $sysconf['logo_image'] != '' && $imagesDisk->isExists($path = 'default/'.$sysconf['logo_image'])){
+            echo '<img class="h-10 w-15" src="'.SWB . 'lib/minigalnano/createthumb.php?filename=images/' . $path.'&width=350">';
+        }
+        elseif (file_exists(__DIR__ . '/../assets/images/logo.png')) {
+            echo '<img class="h-8 w-8" src="'.assets('images/logo.png').'">';
+        } else {
+        ?>
+        <img src="https://static.slims.web.id/logo.svg" class="fill-current text-white inline-block h-8 w-8"/>
+        <?php } ?>
+        <div class="inline-flex flex-col leading-tight ml-2">
+            <h1 class="text-lg m-0 p-0"><?php echo $sysconf['library_name']; ?></h1>
+            <?php if ($sysconf['template']['classic_library_subname']) : ?>
+            <h2 class="text-sm lead m-0 p-0"><?php echo $sysconf['library_subname']; ?></h2>
+            <?php endif; ?>
+        </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button> -->
+    </button>
 
-    <div id="navbarSupportedContent">
-        <ul class="navbar-nav flex flex-col lg:flex-row gap-1 lg:gap-3 items-center">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
           <?php
           foreach ($main_menus as $key => $main_menu) {
             $active = '';
@@ -59,7 +77,7 @@ $main_menus = [
             }
             $menu_str = <<<HTML
 <li class="nav-item {$active}">
-    <a class="nav-link text-sm font-semibold px-2.5 py-3 block text-primary transition-colors" href="{$main_menu['url']}">{$main_menu['text']}</a>
+    <a class="nav-link" href="{$main_menu['url']}">{$main_menu['text']}</a>
 </li>
 HTML;
             echo $menu_str;
@@ -70,7 +88,7 @@ HTML;
           if ($is_login) {
             ?>
               <li class="nav-item <?= $menu_member_active; ?>">
-                  <a class="nav-link text-sm font-semibold px-2.5 py-3 block text-primary transition-colors" href="index.php?p=member&sec=title_basket">
+                  <a class="nav-link" href="index.php?p=member&sec=title_basket">
                       <i class="fas fa-shopping-basket"></i>
                     <?php
                     $count_basket = count($_SESSION['m_mark_biblio']);
@@ -79,7 +97,7 @@ HTML;
                   </a>
               </li>
               <li class="nav-item dropdown <?= $menu_member_active; ?>">
-                  <a class="nav-link dropdown-toggle text-sm font-semibold px-2.5 py-3 block text-primary transition-colors" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false">
                       <img class="w-6 h-6 rounded-full ml-2 mr-2"
                            src="<?php echo $member_image_path; ?>"
@@ -96,7 +114,7 @@ HTML;
               </li>
           <?php } else { ?>
               <li class="nav-item <?= $menu_member_active; ?>">
-                  <a class="nav-link text-sm font-semibold px-2.5 py-3 block text-primary transition-colors" href="index.php?p=member"><?= __('Member Area') ?></a>
+                  <a class="nav-link" href="index.php?p=member"><?= __('Member Area') ?></a>
               </li>
           <?php } ?>
             <li class="nav-item dropdown">

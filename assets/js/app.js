@@ -12,6 +12,8 @@
 
 const { createApp, ref, onMounted, onUnmounted, computed  } = Vue;
 
+const scrolledHeader = ref(false);
+
 const appSearchWrapper = createApp({
             data() {
                 return {
@@ -496,6 +498,19 @@ appSearchWrapper.component('slims-group-member', {
 });
 
 appSearchWrapper.mount("#search-wraper");
+
+//if (document.getElementById('headerWrapper')) {
+const slimsHeaderNav = createApp({
+        data() {
+                return {
+                   isNavOpen: false,
+                   scrolledHeader: false
+                }
+        }
+});
+
+slimsHeaderNav.mount('#header-nav');
+//}
 
 if (document.getElementById('slims-home')) {
     const slimsHome = createApp();

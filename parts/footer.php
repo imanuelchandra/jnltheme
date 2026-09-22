@@ -8,7 +8,7 @@
 ?>
 
 
-<footer class="py-4 bg-grey-darkest text-grey-lighter">
+<footer class="bg-sttbethel py-4 bg-grey-darkest text-grey-lighter">
     <div class="container">
         <div class="row py-4">
             <div class="col-md-3">

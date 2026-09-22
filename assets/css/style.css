@@ -32,7 +32,7 @@ html {
 }
 
 .search {
-    margin-top: -30px;
+    margin-top: 30px;
 }
 
 .search input {
@@ -992,4 +992,36 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
 
 .item-onreserve {
     background-color: orange; 
+}
+
+.text-white {
+    color: white !important; 
+}
+
+.bg-sttbethel {
+    background-color: #1e3a8a;
+}
+
+.hiddenLogoHeader {
+    display: none !important;
+}
+
+
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #1e90ff;
 }
