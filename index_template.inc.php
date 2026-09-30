@@ -31,12 +31,21 @@ include 'parts/header.php';
 // load content by URI
 // ----------------------------------------------------------------------------
 if (isset($_GET['p']) || isset($_GET['search'])) {
+
+  
+  if (isset($_GET['p']) && $_GET['p'] == 'tajuk_subjek') {
+    include 'parts/_subject.php';
+    
+    exit;
+  }
   // --------------------------------------------------------------------------
   // handle result search
-  if (isset($_GET['search'])) {
+  if (isset($_GET['search']) && !isset($_GET['subject'])) {
     // ------------------------------------------------------------------------
     // load parts result search template
     include 'parts/_result-search.php';
+  } else if(isset($_GET['search']) && isset($_GET['subject'])) {
+    include 'parts/_subject.php';
   } else {
     // --------------------------------------------------------------------------
     // handle member page

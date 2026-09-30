@@ -21,7 +21,7 @@ $main_menus = [
   ],
   'tajuk' => [
     'text' => __('Tajuk'),
-    'url' => 'index.php?p=tajuk_subjek'
+    'url' => 'index.php?subject=&search=search'
   ],
   'libinfo' => [
     'text' => __('Information'),

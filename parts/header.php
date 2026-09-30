@@ -91,7 +91,7 @@ $request_uri = urlencode(strip_tags(urldecode($_SERVER['REQUEST_URI'])));
     <link rel="shortcut icon" href="<?= $icon ?>" type="image/x-icon"/>
 
     <!-- // load vue js -->
-    <script src="<?php echo assets('js/vue.min.js'); ?>"></script>
+    <script src="<?php echo assets('js/vue.global.min.js'); ?>"></script>
     <!-- // load jquery library -->
     <script src="<?php echo assets('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo assets('js/masonry.pkgd.min.js'); ?>"></script>

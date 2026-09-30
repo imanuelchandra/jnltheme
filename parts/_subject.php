@@ -1,15 +1,18 @@
 <?php
-# @Author: Waris Agung Widodo <user>
-# @Date:   2018-01-23T11:32:46+07:00
-# @Email:  ido.alit@gmail.com
-# @Filename: _result-search.php
-# @Last modified by:   user
-# @Last modified time: 2018-01-26T16:53:58+07:00
+/**
+ * @Created by          : Waris Agung Widodo (ido.alit@gmail.com)
+ * @Date                : 2019-01-29 10:43
+ * @File name           : _other.php
+ */
+
+use voku\helper\HtmlDomParser;
+
+//require_once 'composer/autoload.php';
 
 ?>
 
-<div class="result-search">
-     <?php
+<div class="result-search pb-5">
+   <?php
         # @Author: Waris Agung Widodo <user>
         # @Date:   2018-01-23T11:27:04+07:00
         # @Email:  ido.alit@gmail.com
@@ -65,8 +68,8 @@
                         </div>
                     </a>
                     <div class="flex flex-col items-end gap-3">
-                        <a href="index.php?p=member" wire:navigate="" class="px-6 py-2 bg-primary text-white rounded-full text-sm font-bold hover:bg-primary/90 transition-all shadow-lg">
-                            Login
+                         <a href="index.php?p=member" wire:navigate="" class="px-6 py-2 bg-primary text-white rounded-full text-sm font-bold hover:bg-primary/90 transition-all shadow-lg">
+                          Login
                         </a>
                     </div>
                 </div>
@@ -220,29 +223,42 @@
 
             </div>
         </header>
+
     <section id="section1 container-fluid">
       <?php
       // ------------------------------------------------------------------------
       // include search form part
       // ------------------------------------------------------------------------
-      include '_search-form.php'; ?>
+      //include '_search-form.php'; ?>
     </section>
 
-    <section class="container mt-5">
+        <section class="container mt-5">
         <div class="row">
             <div class="col-md-3">
                 <h4><?= __('Filter by') ?></h4>
-                <?= $engine->getFilter($opac, true) ?>
+                <?php
+                    //if (isset($_GET['p']) && $_GET['p'] == 'tajuk_subjek') {
+                                        // Jalur (path) menuju file plugin Anda
+                        $plugin_file = SB.'plugins/daftar_tajuk/pages/opac/index.php';
+                        
+                        if (file_exists($plugin_file)) {
+                            include $plugin_file;
+
+                            //exit;
+                        }
+                    //} 
+                ?>
             </div>
             <div class="col-md-9">
                 <div class="d-flex justify-content-between align-items-center mt-1 mb-2 text-sm">
                     <div>
                         <?php
+                        $keywords = isset($keywords) ? $keywords : '';
                         $keywords_info = '<span class="search-keyword-info" title="' . htmlentities($keywords) . '">' . ((strlen($keywords) > 30) ? substr($keywords, 0, 30) . '...' : $keywords) . '</span>';
                         $search_result_info = '<div class="search-found-info">';
                         $search_result_info .= __('Found <strong>{biblio_list->num_rows}</strong> from your keywords') . ': <strong class="search-found-info-keywords">' . $keywords_info . '</strong>';
                         $search_result_info .= '</div>';
-                        echo str_replace('{biblio_list->num_rows}', $engine->getNumRows(), $search_result_info);
+                        //echo str_replace('{biblio_list->num_rows}', $engine->getNumRows(), $search_result_info);
                         ?>
                     </div>
                     <div class="form-inline pl-3">
@@ -270,14 +286,33 @@
                 </div>
                 <div class="wrapper">
                     <?php
-                    if (ENVIRONMENT == 'development' && !empty($engine->getError())) echo '<div class="alert alert-danger mt-2 text-center">' . $engine->getError() . '</div>';
-                    // catch empty list
+                    //if (ENVIRONMENT == 'development' && !empty($engine->getError())) echo '<div class="alert alert-danger mt-2 text-center">' . $engine->getError() . '</div>';
+                    //catch empty list
+                    $html = HtmlDomParser::str_get_html($main_content);
+
+                    //echo "test";
+                    //var_dump($html);
+
+                    // if ($html->find('div.container py-4')) {
+                    //     echo "test";
+                    // }
+
+                    // foreach($html->find('div.container py-4') as $node) {
+                    //     $node->outertext = '';
+                    // }
+
                     if (trim(strip_tags($main_content)) === '') {
                         echo '<div class="d-flex justify-content-center border-t">
-                                <img src="'.assets('images/empty.svg').'" />
-                              </div>
-                              <div class="text-center text-danger"><strong>'.__('No Result').'.</strong> '.__('Please try again').'</div>';
-                    } else {
+                               <img src="'.assets('images/empty.svg').'" />
+                             </div>
+                             <div class="text-center text-danger"><strong>'.__('No Result').'.</strong> '.__('Please try again').'</div>';
+                    } 
+                    // else if ($html->find('div.container py-4')) {
+                    //     foreach($html->find('div.container py-4') as $node) {
+                    //         $node->outertext = '';
+                    //     }
+                    // } 
+                    else {
                         echo $main_content;
                     }
                     ?>
@@ -286,35 +321,3 @@
         </div>
     </section>
 </div>
-<?php if(($_SESSION['LIST_VIEW'] ?? 'list') === 'grid'): ?>
-    <script>
-        // This code modified from: https://www.seancdavis.com/posts/wait-until-all-images-loaded/
-        $(document).ready(function () {
-            // Images loaded is zero because we're going to process a new set of images.
-            let imagesLoaded = 0;
-            // Total images is still the total number of <img> elements on the page.
-            let totalImages = $(".grid-item .img-thumbnail").length;
-
-            // Step through each image in the DOM, clone it, attach an onload event
-            // listener, then set its source to the source of the original image. When
-            // that new image has loaded, fire the imageLoaded() callback.
-            $(".grid-item .img-thumbnail").each(function (idx, img) {
-                $("<img>").on("load", imageLoaded).attr("src", $(img).attr("src"));
-            });
-
-            // Do exactly as we had before -- increment the loaded count and if all are
-            // loaded, call the allImagesLoaded() function.
-            function imageLoaded() {
-                imagesLoaded++;
-                if (imagesLoaded == totalImages) {
-                allImagesLoaded();
-                }
-            }
-
-            function allImagesLoaded() {
-                $('.biblioResult').addClass('row').masonry({ itemSelector: '.grid-item', columnWidth: '.grid-item' })
-                $('.dropdown-toggle').dropdown()
-            }
-        });
-    </script>
-<?php endif; ?>

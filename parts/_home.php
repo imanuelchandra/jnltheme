@@ -61,7 +61,7 @@ $main_menus = [
         </div>
         
 </div>
-<header id="header-nav" :class="scrolledHeader ? 'bg-white/95 backdrop-blur-lg shadow-xl border-slate-200/50' : 'bg-white/60 backdrop-blur-md border-transparent'" class="transition-[background-color,padding,box-shadow] duration-500 w-full border-b sticky top-0 z-50">
+<header id="header-nav" :class="scrolledHeader ? 'bg-white/95 backdrop-blur-lg shadow-xl border-slate-200/50' : 'bg-white/60 backdrop-blur-md border-transparent'" class="bg-white transition-[background-color,padding,box-shadow] duration-500 w-full border-b sticky top-0 z-50">
         <!-- <div class="mask"></div> -->
     <!-- <div v-scroll="handleScroll"></div> -->
 
