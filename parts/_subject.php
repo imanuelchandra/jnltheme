@@ -258,7 +258,7 @@ use voku\helper\HtmlDomParser;
                         $search_result_info = '<div class="search-found-info">';
                         $search_result_info .= __('Found <strong>{biblio_list->num_rows}</strong> from your keywords') . ': <strong class="search-found-info-keywords">' . $keywords_info . '</strong>';
                         $search_result_info .= '</div>';
-                        //echo str_replace('{biblio_list->num_rows}', $engine->getNumRows(), $search_result_info);
+                        echo str_replace('{biblio_list->num_rows}', $engine->getNumRows(), $search_result_info);
                         ?>
                     </div>
                     <div class="form-inline pl-3">
