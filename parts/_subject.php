@@ -286,33 +286,15 @@ use voku\helper\HtmlDomParser;
                 </div>
                 <div class="wrapper">
                     <?php
-                    //if (ENVIRONMENT == 'development' && !empty($engine->getError())) echo '<div class="alert alert-danger mt-2 text-center">' . $engine->getError() . '</div>';
+                    if (ENVIRONMENT == 'development' && !empty($engine->getError())) echo '<div class="alert alert-danger mt-2 text-center">' . $engine->getError() . '</div>';
                     //catch empty list
-                    $html = HtmlDomParser::str_get_html($main_content);
-
-                    //echo "test";
-                    //var_dump($html);
-
-                    // if ($html->find('div.container py-4')) {
-                    //     echo "test";
-                    // }
-
-                    // foreach($html->find('div.container py-4') as $node) {
-                    //     $node->outertext = '';
-                    // }
 
                     if (trim(strip_tags($main_content)) === '') {
                         echo '<div class="d-flex justify-content-center border-t">
                                <img src="'.assets('images/empty.svg').'" />
                              </div>
                              <div class="text-center text-danger"><strong>'.__('No Result').'.</strong> '.__('Please try again').'</div>';
-                    } 
-                    // else if ($html->find('div.container py-4')) {
-                    //     foreach($html->find('div.container py-4') as $node) {
-                    //         $node->outertext = '';
-                    //     }
-                    // } 
-                    else {
+                    } else {
                         echo $main_content;
                     }
                     ?>
