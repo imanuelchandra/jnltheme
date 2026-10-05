@@ -81,6 +81,14 @@ $request_uri = urlencode(strip_tags(urldecode($_SERVER['REQUEST_URI'])));
     <!-- // my custom style -->
     <link rel="stylesheet" href="<?php echo assets('css/style.css?v=' . date('Ymd-his')); ?>">
 
+    <link rel="stylesheet" href="<?php echo assets('css/datatables.min.css'); ?>">
+
+    <link rel="stylesheet" href="<?php echo assets('css/dataTables.bootstrap4.min.css'); ?>">
+
+    <link rel="stylesheet" href="<?php echo assets('css/responsive.dataTables.min.css'); ?>">
+
+    <link rel="stylesheet" href="<?php echo assets('css/responsive.bootstrap4.min.css'); ?>">
+
     <?php
     $icon = SWB . 'webicon.ico';
     if (isset($sysconf['webicon']) && !empty($sysconf['webicon']) && $imagesDisk->isExists($path = 'default/' . $sysconf['webicon']))
@@ -97,6 +105,13 @@ $request_uri = urlencode(strip_tags(urldecode($_SERVER['REQUEST_URI'])));
     <script src="<?php echo assets('js/masonry.pkgd.min.js'); ?>"></script>
     <!-- // load bootstrap javascript -->
     <script src="<?php echo assets('js/bootstrap.bundle.min.js'); ?>"></script>
+
+    
+    <script src="<?php echo assets('js/datatables.min.js'); ?>"></script>
+    <script src="<?php echo assets('js/dataTables.bootstrap4.min.js'); ?>"></script>
+    <script src="<?php echo assets('js/dataTables.responsive.min.js'); ?>"></script>
+    <script src="<?php echo assets('js/responsive.bootstrap4.min.js'); ?>"></script>
+
     <!-- // load vegas javascript -->
     <script src="<?php echo assets('js/tailwind.min.js'); ?>"></script>
 

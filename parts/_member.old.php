@@ -274,7 +274,7 @@
 
                 <div class="max-w-7xl mx-auto flex justify-between items-center">
                     <a href="#" class="flex items-center gap-4 group">
-                        <div class="w-16 h-16 flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
+                        <div class="flex items-center justify-center transition-transform group-hover:scale-105 duration-300">
                           <img src="<?php echo assets('images/logo.webp'); ?>" alt="Logo STT BETHEL AMBON" class="w-full h-full object-contain logo-outline" loading="eager"> 
                         </div>
                         <div class="flex flex-col justify-center">
@@ -294,7 +294,7 @@
                 </div>
                 
         </div>
-        <header id="header-nav" :class="scrolledHeader ? 'bg-white/95 backdrop-blur-lg shadow-xl border-slate-200/50' : 'bg-white/60 backdrop-blur-md border-transparent'" class="transition-[background-color,padding,box-shadow] duration-500 w-full border-b sticky top-0 z-50">
+        <header id="header-nav" :class="scrolledHeader ? 'bg-white/95 backdrop-blur-lg shadow-xl border-slate-200/50' : 'bg-white/60 backdrop-blur-md border-transparent'" class="bg-white transition-[background-color,padding,box-shadow] duration-500 w-full border-b sticky top-0 z-50">
                 <!-- <div class="mask"></div> -->
             <!-- <div v-scroll="handleScroll"></div> -->
 

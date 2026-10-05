@@ -1025,3 +1025,7 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
 .nav-links li a:hover {
   color: #1e90ff;
 }
+
+.collapse {
+    visibility: visible !important;
+}
