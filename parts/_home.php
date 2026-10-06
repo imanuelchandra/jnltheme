@@ -263,6 +263,7 @@ $main_menus = [
         <small class="subtitle-section"><?php echo __('Our library\'s line of collection that have been favoured by our users were shown here. Look for them. Borrow them. Hope you also like them');?></small>
     </h4>
 
+    <!-- https://www.simplethread.com/a-practical-use-case-of-render-functions-in-vue render functions -->
     <slims-group-subject url="index.php?p=api/subject/popular"></slims-group-subject>
     <slims-collection url="index.php?p=api/biblio/popular"></slims-collection>
 

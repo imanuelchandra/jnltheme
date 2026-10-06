@@ -10,7 +10,7 @@
 'use strict';
 
 
-const { createApp, ref, onMounted, onUnmounted, computed  } = Vue;
+const { createApp, ref, onMounted, onUnmounted, computed, h  } = Vue;
 
 const scrolledHeader = ref(false);
 
@@ -142,65 +142,6 @@ appSearchWrapper.component('slims-subject', {
     }
 });
 
-appSearchWrapper.component('slims-book', {
-    props: {
-        biblioId: {
-            type: String,
-            default: ''
-        },
-        title: {
-            type: String,
-            default: ''
-        },
-        image: {
-            type: String,
-            default: ''
-        }
-    },
-    render: function (createElement) {
-        return createElement('div', {
-            attrs: {
-                class: 'w-48 pr-4 pb-4'
-            }
-        }, [
-            createElement('a', {
-                attrs: {
-                    href: `index.php?p=show_detail&id=${this.biblioId}`,
-                    class: 'card border-0 hover:shadow cursor-pointer text-decoration-none h-full'
-                },
-            }, [
-                createElement('div', {
-                    attrs: {
-                        class: 'card-body'
-                    }
-                }, [
-                    createElement('div', {
-                        attrs: {
-                            class: 'card-image fit-height'
-                        }
-                    }, [
-                        createElement('img', {
-                            attrs: {
-                                src: this.image,
-                                class: 'img-fluid',
-                                loading: 'lazy'
-                            }
-                        })
-                    ]),
-                    createElement('div', {
-                        attrs: {
-                            class: 'card-text mt-2 text-grey-darker'
-                        },
-                        domProps: {
-                            innerHTML: this.title
-                        }
-                    })
-                ])
-            ])
-        ])
-    }
-});
-
 appSearchWrapper.component('slims-member', {
     props: {
         image: {
@@ -305,71 +246,39 @@ appSearchWrapper.component('slims-member', {
     }
 });
 
-appSearchWrapper.component('slims-collection', {
-    props: {
-        url: {
-            type: String,
-            default: ''
-        }
-    },
-    data() {
-        return {
-            biblios: [],
-            loading: false
-        }
-    },
-    mounted() {
-        this.getData()
-    },
-    methods: {
-        getData() {
-            this.loading = true
-            fetch(this.url)
-                .then(res => res.json())
-                .then(res => {
-                    this.biblios = res
-                })
-                .finally(() => {
-                    this.loading = false
-                })
-        }
-    },
-    render: function (createElement) {
-        if (this.loading && this.biblios.length < 1) {
-            return createElement('div', {
-                attrs: {
-                    class: 'spinner-border text-primary'
+
+appSearchWrapper.mount("#search-wraper");
+
+//if (document.getElementById('headerWrapper')) {
+const slimsHeaderNav = createApp({
+        data() {
+                return {
+                   isNavOpen: false,
+                   scrolledHeader: false
                 }
-            }, [
-                createElement('span', {
-                    attrs: {
-                        class: 'sr-only',
-                        role: 'status'
-                    },
-                    domProps: {
-                        innerHTML: 'Loading...'
-                    }
-                })
-            ])
-        } else {
-            return createElement('div', {
-                attrs: {
-                    class: 'flex flex-wrap mt-4 collection'
-                }
-            }, this.biblios.map(function (item) {
-                return createElement('slims-book', {
-                    attrs: {
-                        biblioId: item.biblio_id,
-                        image: item.image,
-                        title: item.title,
-                    }
-                })
-            }))
+        },
+        mounted() {
+            window.addEventListener("scroll", this.onScroll);
+        },
+        beforeDestroy() {
+            window.removeEventListener("scroll", this.onScroll);
+        },
+        methods: {
+            onScroll(e) {
+            this.scrolledHeader = e.target.documentElement.scrollTop > 20;
+            // console.log({ top: this.scrolledHeader });
+            }
         }
-    }
 });
 
-appSearchWrapper.component('slims-group-subject', {
+slimsHeaderNav.mount('#header-nav');
+//}
+
+//if (document.getElementById('slims-home')) {
+
+const slimsHome = createApp({});
+
+slimsHome.component('slims-group-subject', {
     props: {
         url: {
             type: String,
@@ -400,38 +309,83 @@ appSearchWrapper.component('slims-group-subject', {
     },
     render: function (createElement) {
         if (this.loading && this.subjects.length < 1) {
-            return createElement('div', {
-                attrs: {
+            return h('div',{
                     class: 'spinner-border text-primary'
                 }
-            }, [
-                createElement('span', {
-                    attrs: {
+            , [
+                h('span', {
                         class: 'sr-only',
-                        role: 'status'
-                    },
-                    domProps: {
+                        role: 'status',
                         innerHTML: 'Loading...'
                     }
-                })
+                )
             ])
         } else {
-            return createElement('div', {
-                attrs: {
+            return h('div', {
                     class: 'flex flex-wrap'
                 }
-            }, this.subjects.map(function (topic) {
-                return createElement('slims-subject', {
-                    attrs: {
+            , this.subjects.map(function (topic) {
+                return h('slims-subject', {
                         topic
                     }
-                })
+                )
             }))
         }
     }
 });
 
-appSearchWrapper.component('slims-group-member', {
+slimsHome.component('slims-book', {
+    props: {
+        biblioId: {
+            type: String,
+            default: ''
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        image: {
+            type: String,
+            default: ''
+        }
+    },
+    render: function (createElement) {
+        return h('div', {
+                class: 'w-48 pr-4 pb-4'
+            }
+        , [
+            h('a',  {
+                    href: `index.php?p=show_detail&id=${this.biblioId}`,
+                    class: 'card border-0 hover:shadow cursor-pointer text-decoration-none h-full'
+                },
+             [
+                h('div',  {
+                        class: 'card-body'
+                    }
+                 [
+                    h('div', {
+                            class: 'card-image fit-height'
+                        }
+                     [
+                        h('img',  {
+                                src: this.image,
+                                class: 'img-fluid',
+                                loading: 'lazy'
+                            }
+                        )
+                    ]),
+                    h('div',  {
+                            class: 'card-text mt-2 text-grey-darker',
+                            innerHTML: this.title
+                        }
+                    )
+                ])
+            ])
+        ])
+    }
+});
+
+slimsHome.component('slims-group-member', {
     props: {
         url: {
             type: String,
@@ -462,12 +416,12 @@ appSearchWrapper.component('slims-group-member', {
     },
     render: function (createElement) {
         if (this.loading && this.members.length < 1) {
-            return createElement('div', {
+            return h('div', {
                 attrs: {
                     class: 'spinner-border text-primary'
                 }
             }, [
-                createElement('span', {
+                h('span', {
                     attrs: {
                         class: 'sr-only',
                         role: 'status'
@@ -478,12 +432,12 @@ appSearchWrapper.component('slims-group-member', {
                 })
             ])
         } else {
-            return createElement('div', {
+            return h('div', {
                 attrs: {
                     class: 'flex flex-wrap'
                 }
             }, this.members.map(function (member) {
-                return createElement('slims-member', {
+                return h('slims-member', {
                     attrs: {
                         memberName: member.name,
                         memberType: member.type,
@@ -497,23 +451,63 @@ appSearchWrapper.component('slims-group-member', {
     }
 });
 
-appSearchWrapper.mount("#search-wraper");
-
-//if (document.getElementById('headerWrapper')) {
-const slimsHeaderNav = createApp({
-        data() {
-                return {
-                   isNavOpen: false,
-                   scrolledHeader: false
-                }
+    slimsHome.component('slims-collection', {
+    props: {
+        url: {
+            type: String,
+            default: ''
         }
+    },
+    data() {
+        return {
+            biblios: [],
+            loading: false
+        }
+    },
+    mounted() {
+        this.getData()
+    },
+    methods: {
+        getData() {
+            this.loading = true
+            fetch(this.url)
+                .then(res => res.json())
+                .then(res => {
+                    this.biblios = res
+                })
+                .finally(() => {
+                    this.loading = false
+                })
+        }
+    },
+    render: function (createElement) {
+        if (this.loading && this.biblios.length < 1) {
+            return h('div',  {
+                    class: 'spinner-border text-primary'
+                }
+            , [
+                h('span',  {
+                        class: 'sr-only',
+                        role: 'status',
+                        innerHTML: 'Loading...'
+                    }
+                )
+            ])
+        } else {
+            return h('div',  {
+                    class: 'flex flex-wrap mt-4 collection'
+                }
+            , this.biblios.map(function (item) {
+                return h('slims-book',  {
+                        biblioId: item.biblio_id,
+                        image: item.image,
+                        title: item.title,
+                    }
+                )
+            }))
+        }
+    }
 });
 
-slimsHeaderNav.mount('#header-nav');
+slimsHome.mount('#slims-home');
 //}
-
-if (document.getElementById('slims-home')) {
-    const slimsHome = createApp();
-
-    slimsHome.mount('#slims-home');
-}

@@ -103,8 +103,6 @@ $request_uri = urlencode(strip_tags(urldecode($_SERVER['REQUEST_URI'])));
     <!-- // load jquery library -->
     <script src="<?php echo assets('js/jquery.min.js'); ?>"></script>
     <script src="<?php echo assets('js/masonry.pkgd.min.js'); ?>"></script>
-    <!-- // load bootstrap javascript -->
-    <script src="<?php echo assets('js/bootstrap.bundle.min.js'); ?>"></script>
 
     
     <script src="<?php echo assets('js/datatables.min.js'); ?>"></script>
