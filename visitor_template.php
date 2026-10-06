@@ -102,9 +102,11 @@ if (isset($_GET['select_lang'])) {
 
 <script src="<?php echo $sysconf['template']['dir'].'/'.$sysconf['template']['theme'].'/assets/js/axios.min.js'; ?>"></script>
 <script src="<?= JWB . 'he.js' ?>"></script>
-<script>
-    new Vue({
-        el: '#visitor-counter',
+<script type="module">
+
+const { createApp, ref, onMounted, onUnmounted, computed  } = Vue;
+
+const visitorNav = createApp({
         data() {
             return {
                 memberId: '',
@@ -202,5 +204,8 @@ if (isset($_GET['select_lang'])) {
                 speechSynthesis.speak(message);
             }
         }
-    })
+});
+
+visitorNav.mount('#visitor-counter');
+
 </script>
